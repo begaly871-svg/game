@@ -211,7 +211,7 @@ class _YurtHomeState extends State<YurtHome> {
           final unlocked = i == 0 || best >= [0, 25, 50, 100, 200][i];
           return ListTile(leading: Text(names[i].split(' ').first, style: const TextStyle(fontSize: 24)), title: Text(unlocked ? names[i] : '${t('locked')} ${[0, 25, 50, 100, 200][i]}'), trailing: skin == i ? const Icon(Icons.check, color: _red) : null, enabled: unlocked, onTap: unlocked ? () { setState(() => skin = i); _saveInt('skin', i); refresh(() {}); } : null);
         })),
-        actions: [TextButton(onPressed: () => Navigator.pop(c), child: Text(t('back'))],
+        actions: [TextButton(onPressed: () => Navigator.pop(c), child: Text(t('back')))],
       )));
 }
 
