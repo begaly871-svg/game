@@ -123,7 +123,7 @@ class _YurtHomeState extends State<YurtHome> {
                           children: [
                             const YurtEmblem(size: 128),
                             const SizedBox(height: 12),
-                            SizedBox(height: 30, child: CustomPaint(painter: SteppePatternPainter())), 
+                            const SizedBox(height: 30, child: CustomPaint(painter: SteppePatternPainter())),
                             const SizedBox(height: 8),
                             Text(t('title'), style: const TextStyle(fontSize: 42, fontWeight: FontWeight.w900, color: _ink, letterSpacing: 3)),
                             const SizedBox(height: 8),
@@ -190,7 +190,7 @@ class _YurtHomeState extends State<YurtHome> {
   void _showStats() => showDialog<void>(context: context, builder: (c) => AlertDialog(
         title: Text(t('stats')),
         content: Text('${t('best')}: $best\n${t('games')}: $games\n${t('floors')}: $totalFloors\n${t('combo')}: $bestCombo'),
-        actions: [TextButton(onPressed: () => Navigator.pop(c), child: Text(t('back'))],
+        actions: [TextButton(onPressed: () => Navigator.pop(c), child: Text(t('back')))],
       ));
 
   void _showSettings() => showDialog<void>(context: context, builder: (c) => StatefulBuilder(builder: (c, refresh) => AlertDialog(
@@ -201,7 +201,7 @@ class _YurtHomeState extends State<YurtHome> {
           SwitchListTile(title: Text(t('haptics')), value: haptics, onChanged: (v) { setState(() => haptics = v); refresh(() {}); _saveBool('haptics', v); }),
           DropdownButton<String>(value: language, isExpanded: true, items: const [DropdownMenuItem(value: 'ru', child: Text('Русский')), DropdownMenuItem(value: 'en', child: Text('English')), DropdownMenuItem(value: 'ky', child: Text('Кыргызча'))], onChanged: (v) { if (v != null) { setState(() => language = v); refresh(() {}); _save('language', v); } }),
         ]),
-        actions: [TextButton(onPressed: () => Navigator.pop(c), child: Text(t('back'))],
+        actions: [TextButton(onPressed: () => Navigator.pop(c), child: Text(t('back')))],
       )));
 
   void _showSkins() => showDialog<void>(context: context, builder: (c) => StatefulBuilder(builder: (c, refresh) => AlertDialog(
@@ -277,7 +277,9 @@ class _StackGame extends FlameGame with TapCallbacks {
   final List<_Yurt> blocks = [];
   double blockWidth = 150, movingX = 0, speed = 170;
   int direction = 1;
-  bool started = false, ended = false, paused = false;
+  bool started = false, ended = false;
+  @override
+  bool paused = false;
   int peakCombo = 0;
   static const _worlds = [Color(0xffbfe6f5), Color(0xff9ad0ec), Color(0xff2b2e6b), Color(0xff0a0c1f)];
   static const _skins = [Color(0xffffffff), Color(0xffe86958), Color(0xffcf9a5a), Color(0xfff3c04c), Color(0xff5ce1e6)];
